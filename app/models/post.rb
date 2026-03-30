@@ -1,13 +1,15 @@
 class Post < ApplicationRecord
   belongs_to :user
+  belongs_to :store, optional: true
+
   has_many :reads, dependent: :destroy
   has_many :read_users, through: :reads, source: :user
 
   enum post_type: {
-  notice: 0,
-  arrival: 1,
-  claim: 2,
-  customer_service: 3
+    notice: 0,
+    arrival: 1,
+    claim: 2,
+    customer_service: 3
   }
 
   validates :title, presence: true
@@ -15,7 +17,7 @@ class Post < ApplicationRecord
   validates :post_type, presence: true
 
   def unread_users
-    User.where.not(id: read_users.pluck(:id) + [user_id])
+    store.users.where.not(id: read_users.pluck(:id) + [user_id])
   end
 
   def unread_count
