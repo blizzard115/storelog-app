@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_30_052353) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_30_120202) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_30_052353) do
     t.integer "post_type", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.boolean "is_public", default: true, null: false
+    t.bigint "store_id"
+    t.index ["store_id"], name: "index_posts_on_store_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -35,6 +37,14 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_30_052353) do
     t.index ["user_id"], name: "index_reads_on_user_id"
   end
 
+  create_table "stores", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "store_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -44,11 +54,15 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_30_052353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "nickname"
+    t.bigint "store_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["store_id"], name: "index_users_on_store_id"
   end
 
+  add_foreign_key "posts", "stores"
   add_foreign_key "posts", "users"
   add_foreign_key "reads", "posts"
   add_foreign_key "reads", "users"
+  add_foreign_key "users", "stores"
 end

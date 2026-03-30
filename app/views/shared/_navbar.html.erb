@@ -3,29 +3,43 @@
     <%= link_to "StoreLog", root_path, class: "self-center text-white text-xl font-semibold whitespace-nowrap" %>
 
     <div class="w-full md:block md:w-auto">
-      <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-        <li>
-          <%= link_to "共有一覧", posts_path, class: "block py-2 pr-4 pl-3 text-gray-200 hover:text-white border-b border-gray-700 hover:bg-gray-700 md:hover:bg-transparent md:border-0 md:p-0" %>
-        </li>
+      <ul class="flex flex-col mt-4 md:flex-row md:space-x-6 md:mt-0 md:text-sm md:font-medium items-center">
 
-        <% if current_user %>
+        <% if user_signed_in? %>
           <li>
-            <%= link_to "共有を投稿", new_post_path, class: "block py-2 pr-4 pl-3 text-gray-200 hover:text-white border-b border-gray-700 hover:bg-gray-700 md:hover:bg-transparent md:border-0 md:p-0" %>
+            <span class="text-xs bg-gray-700 text-white px-3 py-1 rounded-full">
+              🏬 <%= current_user.store.name %>
+            </span>
           </li>
+
           <li>
-            <%= link_to "マイページ", user_path(current_user), class: "block py-2 pr-4 pl-3 text-gray-200 hover:text-white border-b border-gray-700 hover:bg-gray-700 md:hover:bg-transparent md:border-0 md:p-0" %>
+            <%= link_to "共有一覧", posts_path, class: "text-gray-200 hover:text-white" %>
           </li>
+
           <li>
-            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "block py-2 pr-4 pl-3 text-gray-200 hover:text-white border-b border-gray-700 hover:bg-gray-700 md:hover:bg-transparent md:border-0 md:p-0 bg-transparent border-0" %>
+            <%= link_to "投稿", new_post_path, class: "text-gray-200 hover:text-white" %>
           </li>
+
+          <li>
+            <%= link_to "マイページ", user_path(current_user), class: "text-gray-200 hover:text-white" %>
+          </li>
+
+          <li>
+            <%= button_to "ログアウト", destroy_user_session_path,
+              method: :delete,
+              class: "text-gray-200 hover:text-white bg-transparent border-0" %>
+          </li>
+
         <% else %>
           <li>
-            <%= link_to "ユーザー登録", new_user_registration_path, class: "block py-2 pr-4 pl-3 text-gray-200 hover:text-white border-b border-gray-700 hover:bg-gray-700 md:hover:bg-transparent md:border-0 md:p-0" %>
+            <%= link_to "新規登録", new_user_registration_path, class: "text-gray-200 hover:text-white" %>
           </li>
+
           <li>
-            <%= link_to "ログイン", new_user_session_path, class: "block py-2 pr-4 pl-3 text-gray-200 hover:text-white border-b border-gray-700 hover:bg-gray-700 md:hover:bg-transparent md:border-0 md:p-0" %>
+            <%= link_to "ログイン", new_user_session_path, class: "text-gray-200 hover:text-white" %>
           </li>
         <% end %>
+
       </ul>
     </div>
   </div>
