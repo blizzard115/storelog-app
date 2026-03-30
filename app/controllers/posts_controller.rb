@@ -8,10 +8,6 @@ class PostsController < ApplicationController
       @posts = @posts.where("title LIKE ? OR content LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%")
     end
 
-    if params[:status].present?
-      @posts = @posts.where(status: params[:status])
-    end
-
     if params[:post_type].present?
       @posts = @posts.where(post_type: params[:post_type])
     end
@@ -54,6 +50,6 @@ class PostsController < ApplicationController
  
   # ストロングパラメータで許可するカラムを指定
   def post_params
-    params.require(:post).permit(:title, :content, :post_type, :status, :is_public)
+    params.require(:post).permit(:title, :content, :post_type)
   end
 end
