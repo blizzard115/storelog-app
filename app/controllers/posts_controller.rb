@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :destroy] # ログインしているかどうかを判断
  
   def index
-    @posts = Post.order(created_at: :desc)
+    @posts = Post.includes(:user, :read_users).order(created_at: :desc)
 
     if params[:keyword].present?
       @posts = @posts.where("title LIKE ? OR content LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%")
