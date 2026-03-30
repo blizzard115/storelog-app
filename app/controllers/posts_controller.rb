@@ -11,6 +11,11 @@ class PostsController < ApplicationController
     if params[:post_type].present?
       @posts = @posts.where(post_type: params[:post_type])
     end
+
+    if params[:read_status] == "unread" && user_signed_in?
+      read_post_ids = current_user.reads.select(:post_id)
+      @posts = @posts.where.not(id: read_post_ids).where.not(user_id: current_user.id)
+    end
   end
   
   def new
@@ -32,6 +37,7 @@ class PostsController < ApplicationController
  
   def show
     @post = Post.find(params[:id])
+    @unread_users = User.where.not(id: @post.read_users.pluck(:id) + [@post.user_id])
   end
  
   def destroy

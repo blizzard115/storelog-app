@@ -14,6 +14,14 @@ class Post < ApplicationRecord
   validates :content, presence: true
   validates :post_type, presence: true
 
+  def unread_users
+    User.where.not(id: read_users.pluck(:id) + [user_id])
+  end
+
+  def unread_count
+    unread_users.count
+  end
+
   def post_type_label
     case post_type
     when "notice" then "連絡事項"
