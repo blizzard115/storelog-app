@@ -2,7 +2,7 @@
   <section class="py-12 md:py-20">
     <div class="text-center">
       <span class="inline-block bg-indigo-100 text-indigo-700 rounded-full px-4 py-1 text-sm font-medium mb-6">
-        学習とエラー解決を、見返せる形で残す
+        店舗の情報共有を、もっと確実に
       </span>
 
       <h1 class="text-6xl md:text-7xl font-bold tracking-tight text-gray-900 mb-6">
@@ -10,31 +10,31 @@
       </h1>
 
       <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        日々の学習記録や発生したエラー、<br>
+        店舗内の連絡事項や入荷情報、<br>
         <span class="font-semibold text-gray-800">
-          その解決までの過程
+          クレーム対応や売場改善の記録
         </span>
-        を整理して残せる学習ログアプリです。<br>
-        振り返りや再発防止をしやすくし、知識の蓄積につなげます。
+        を整理して共有できる情報共有アプリです。<br>
+        紙の共有ノートでは埋もれやすい情報を、検索しやすい形で蓄積できます。
       </p>
     </div>
 
     <div class="flex flex-wrap justify-center gap-4 mt-10">
       <% if user_signed_in? %>
-        <%= link_to "ログを投稿する", new_post_path, class: "inline-block bg-indigo-600 text-white px-6 py-3 rounded-md font-medium hover:bg-indigo-700 transition-colors" %>
+        <%= link_to "共有を投稿する", new_post_path, class: "inline-block bg-indigo-600 text-white px-6 py-3 rounded-md font-medium hover:bg-indigo-700 transition-colors" %>
       <% else %>
         <%= link_to "ユーザー登録", new_user_registration_path, class: "inline-block bg-indigo-600 text-white px-6 py-3 rounded-md font-medium hover:bg-indigo-700 transition-colors" %>
       <% end %>
 
-      <%= link_to "ログ一覧を見る", posts_path, class: "inline-block bg-white text-indigo-600 border border-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
+      <%= link_to "共有一覧を見る", posts_path, class: "inline-block bg-white text-indigo-600 border border-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
     </div>
   </section>
 
   <section class="py-16 bg-white rounded-2xl shadow-sm">
     <div class="text-center mb-12 px-4">
-      <h2 class="text-3xl font-bold text-gray-900">TechLogでできること</h2>
+      <h2 class="text-3xl font-bold text-gray-900">StoreLogでできること</h2>
       <p class="mt-4 text-lg text-gray-600">
-        学習の記録とエラー管理を、シンプルに整理できます
+        店舗内の情報を記録・共有し、伝達漏れを防ぎます
       </p>
     </div>
 
@@ -42,39 +42,39 @@
       <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
         <div class="mb-4">
           <span class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-blue-100 text-blue-700">
-            学習記録
+            連絡事項
           </span>
         </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-3">学習内容を残す</h3>
+        <h3 class="text-xl font-semibold text-gray-900 mb-3">店舗の共有事項を残す</h3>
         <p class="text-gray-600 leading-relaxed">
-          その日に学んだことや取り組んだ内容を記録し、後から振り返れる形で残せます。
+          日々の引き継ぎや注意事項を記録し、スタッフ全員が後から確認できる形で残せます。
         </p>
       </div>
 
       <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
         <div class="mb-4 flex gap-2">
           <span class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-purple-100 text-purple-700">
-            エラーログ
+            入荷情報
           </span>
           <span class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-red-100 text-red-700">
-            未解決 / 解決済み
+            未確認 / 確認済み
           </span>
         </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-3">エラーの解決状況を管理</h3>
+        <h3 class="text-xl font-semibold text-gray-900 mb-3">確認状況を管理する</h3>
         <p class="text-gray-600 leading-relaxed">
-          発生したエラーを記録し、未解決・解決済みの状態を整理できます。再発時の見返しにも役立ちます。
+          入荷商品や重要な共有事項について、誰が確認したかを可視化し、伝達漏れを防ぎます。
         </p>
       </div>
 
       <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
         <div class="mb-4">
           <span class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-green-100 text-green-700">
-            公開 / 非公開
+            検索 / 共有
           </span>
         </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-3">公開範囲を切り替える</h3>
+        <h3 class="text-xl font-semibold text-gray-900 mb-3">必要な情報をすぐ探せる</h3>
         <p class="text-gray-600 leading-relaxed">
-          自分だけのメモとして残すことも、他のユーザーに共有することもできる設計です。
+          紙のノートでは探しづらい過去の共有内容も、キーワード検索や絞り込みで素早く見つけられます。
         </p>
       </div>
     </div>
@@ -84,29 +84,30 @@
     <div class="grid md:grid-cols-2 gap-8 items-center">
       <div class="bg-white rounded-2xl shadow-sm p-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">
-          学習の流れを、記録として積み上げる
+          紙の共有ノートを、もっと使いやすく
         </h2>
         <p class="text-gray-600 leading-relaxed mb-6">
-          学習記録とエラーログを分けて管理することで、
-          「何を学んだか」「どこでつまずいたか」「どう解決したか」を整理できます。
+          店舗での情報共有をデジタル化することで、
+          「何が共有されたか」「誰が確認したか」「過去に何があったか」を
+          すぐに把握できるようにします。
         </p>
 
         <ul class="space-y-3 text-gray-700">
-          <li>・学習内容を日々記録できる</li>
-          <li>・エラーの解決過程を残せる</li>
-          <li>・未解決の課題を把握できる</li>
+          <li>・連絡事項を記録できる</li>
+          <li>・入荷情報を共有できる</li>
+          <li>・確認漏れを防げる</li>
         </ul>
       </div>
 
       <div class="bg-indigo-600 text-white rounded-2xl p-8">
-        <h2 class="text-3xl font-bold mb-4">今日の学びを、次につなげる</h2>
+        <h2 class="text-3xl font-bold mb-4">店舗の共有を、もっとスムーズに</h2>
         <p class="text-indigo-100 leading-relaxed mb-8">
-          記録することで、知識はただのメモではなく、自分の資産になります。
-          学習の継続と振り返りを、TechLogで支援します。
+          紙のノートで管理していた共有事項を、検索・記録・確認しやすい形に変えることで、
+          店舗内の情報伝達をより確実にします。
         </p>
 
         <% if user_signed_in? %>
-          <%= link_to "ログを投稿する", new_post_path, class: "inline-block bg-white text-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
+          <%= link_to "共有を投稿する", new_post_path, class: "inline-block bg-white text-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
         <% else %>
           <%= link_to "ユーザー登録", new_user_registration_path, class: "inline-block bg-white text-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
         <% end %>
