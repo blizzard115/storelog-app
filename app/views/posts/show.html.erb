@@ -68,5 +68,18 @@
         </div>
       </div>
     <% end %>
+
+    <% if @unread_users.any? %>
+      <div class="mt-4">
+        <p class="text-sm font-medium text-gray-700">未確認スタッフ</p>
+        <div class="flex flex-wrap gap-2 mt-2">
+          <% @unread_users.each do |user| %>
+            <span class="inline-block text-xs px-3 py-1 rounded-full bg-red-100 text-red-700">
+              <%= user.nickname %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

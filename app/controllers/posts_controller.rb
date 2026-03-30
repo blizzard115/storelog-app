@@ -32,6 +32,7 @@ class PostsController < ApplicationController
  
   def show
     @post = Post.find(params[:id])
+    @unread_users = User.where.not(id: @post.read_users.pluck(:id) + [@post.user_id])
   end
  
   def destroy
