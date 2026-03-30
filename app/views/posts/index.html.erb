@@ -1,0 +1,91 @@
+<div class="space-y-6 w-3/4 max-w-lg mx-auto">
+  <h1 class="block text-xl font-bold text-gray-700">学習・エラーログ一覧</h1>
+
+  <%= form_with url: posts_path, method: :get, local: true, class: "mb-6" do |f| %>
+    <div class="flex gap-2">
+      <%= f.text_field :keyword,
+        value: params[:keyword],
+        placeholder: "キーワードで検索",
+        class: "flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" %>
+
+      <%= f.hidden_field :status, value: params[:status] %>
+      <%= f.hidden_field :post_type, value: params[:post_type] %>
+
+      <%= f.submit "検索",
+        class: "px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition" %>
+    </div>
+  <% end %>
+  <% if params[:keyword].present? || params[:status].present? || params[:post_type].present? %>
+    <p class="text-sm text-gray-500 mb-2">
+      条件に一致するログが <%= @posts.count %>件見つかりました
+    </p>
+  <% end %>
+
+  <div class="flex gap-2 mb-4">
+    <%= link_to "すべて", posts_path(status: params[:status], keyword: params[:keyword]),
+      class: "px-3 py-1 rounded #{params[:post_type].blank? ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800'}" %>
+
+    <%= link_to "学習記録", posts_path(post_type: "study_log", status: params[:status], keyword: params[:keyword]),
+      class: "px-3 py-1 rounded #{params[:post_type] == 'study_log' ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-700'}" %>
+
+    <%= link_to "エラーログ", posts_path(post_type: "error_log", status: params[:status], keyword: params[:keyword]),
+      class: "px-3 py-1 rounded #{params[:post_type] == 'error_log' ? 'bg-purple-500 text-white' : 'bg-purple-100 text-purple-700'}" %>
+  </div>
+
+  <div class="flex gap-2 mb-6">
+    <%= link_to "すべて", posts_path(post_type: params[:post_type], keyword: params[:keyword]),
+      class: "px-3 py-1 rounded #{params[:status].blank? ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800'}" %>
+
+    <%= link_to "未解決", posts_path(status: "unsolved", post_type: params[:post_type], keyword: params[:keyword]),
+      class: "px-3 py-1 rounded #{params[:status] == 'unsolved' ? 'bg-red-500 text-white' : 'bg-red-100 text-red-700'}" %>
+
+    <%= link_to "解決済み", posts_path(status: "solved", post_type: params[:post_type], keyword: params[:keyword]),
+      class: "px-3 py-1 rounded #{params[:status] == 'solved' ? 'bg-green-500 text-white' : 'bg-green-100 text-green-700'}" %>
+  </div>
+
+  <div>
+    <% if @posts.empty? %>
+      <div class="bg-white rounded-lg shadow-sm p-6 text-center">
+        <% if params[:keyword].present? || params[:status].present? || params[:post_type].present? %>
+          <p class="text-gray-600">条件に一致するログがありません。</p>
+        <% else %>
+          <p class="text-gray-600">まだ投稿がありません。</p>
+        <% end %>
+      </div>
+    <% else %>
+      <% @posts.each do |post| %>
+        <div class="focus:outline-none mb-7 bg-white p-6 shadow rounded">
+          <div class="flex items-center border-b border-gray-200 pb-6">
+            <div class="flex items-start justify-between w-full">
+              <div class="pl-3">
+                <p class="focus:outline-none text-lg font-medium leading-5 text-gray-800">
+                  <%= link_to post.title, post_path(post) %>
+                </p>
+
+                <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
+                  by <%= link_to post.user.nickname, user_path(post.user), class: "hover:text-indigo-600 hover:font-bold" %>
+                </p>
+
+                <div class="flex gap-2 pt-3">
+                  <span class="inline-block text-xs font-medium px-3 py-1 rounded-full <%= post.post_type == 'study_log' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' %>">
+                    <%= post.post_type == "study_log" ? "学習記録" : "エラーログ" %>
+                  </span>
+
+                  <span class="inline-block text-xs font-medium px-3 py-1 rounded-full <%= post.status == 'solved' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' %>">
+                    <%= post.status == "solved" ? "解決済み" : "未解決" %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-2">
+            <p class="focus:outline-none text-sm leading-5 py-4 text-gray-600 line-clamp-3 overflow-hidden">
+              <%= post.content %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

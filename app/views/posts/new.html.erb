@@ -1,0 +1,52 @@
+<div class="flex justify-center">
+  <%= form_with model: @post, class: "space-y-6 w-3/4 max-w-lg bg-white p-6 rounded-lg shadow" do |f| %>
+    <h1 class="block text-xl font-bold text-gray-700">ログ投稿</h1>
+
+    <div class="mt-1">
+      <%= f.label :title, "タイトル", class: "text-gray-700 text-lg" %>
+      <%= f.text_field :title,
+        class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 px-2 block w-full sm:text-sm placeholder-gray-400 border border-gray-300 rounded-md",
+        placeholder: "Railsで発生したエラーを解決した" %>
+    </div>
+
+    <div class="mt-1">
+      <%= f.label :content, "本文", class: "text-gray-700 text-lg" %>
+      <%= f.text_area :content,
+        rows: 5,
+        class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 px-2 block w-full sm:text-sm placeholder-gray-400 border border-gray-300 rounded-md",
+        placeholder: "発生したエラーの内容、原因、試したこと、解決方法を記録します" %>
+    </div>
+
+    <div class="mt-1">
+      <%= f.label :post_type, "投稿種別", class: "text-gray-700 text-lg" %>
+      <%= f.select :post_type,
+        [["学習記録", "study_log"], ["エラーログ", "error_log"]],
+        {},
+        class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-2 px-2 block w-full sm:text-sm border border-gray-300 rounded-md bg-white" %>
+    </div>
+
+    <div class="mt-1">
+      <%= f.label :status, "ステータス", class: "text-gray-700 text-lg" %>
+      <%= f.select :status,
+        [["未解決", "unsolved"], ["解決済み", "solved"]],
+        {},
+        class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-2 px-2 block w-full sm:text-sm border border-gray-300 rounded-md bg-white" %>
+    </div>
+
+    <div class="mt-1">
+      <label class="inline-flex items-center text-gray-700 text-lg">
+        <%= f.check_box :is_public, class: "mr-2" %>
+        公開する
+      </label>
+    </div>
+
+    <p class="mt-2 text-sm text-gray-500">
+      学習したことや発生したエラー、その解決方法を記録しましょう。
+    </p>
+
+    <div class="px-4 py-3 text-right sm:px-6">
+      <%= f.submit "ログを記録",
+        class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
