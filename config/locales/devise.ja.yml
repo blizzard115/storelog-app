@@ -19,6 +19,12 @@ ja:
             password_confirmation:
               confirmation: "が一致していません。"
         post:
+        store:
+          attributes:
+            store_code:
+              taken: "はすでに使用されています"
+            name:
+              blank: "が入力されていません"
           attributes:
             title:
               blank: "が入力されていません。"
@@ -30,12 +36,17 @@ ja:
               required: "が入力されていません。"
     attributes:
       user:
+      store:
+        name: "店舗名"
+        store_code: "店舗コード"
+        email: "管理用メール"
         nickname: "ニックネーム"
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "確認用パスワード"
     models:
       user: "ユーザー"
+      store: "店舗"
   errors:
     messages:
       not_saved: "エラーが発生したため%{resource}は保存されませんでした。"
@@ -43,8 +54,10 @@ ja:
   devise:
     failure:
       invalid: "%{authentication_keys}またはパスワードが違います。"
+      already_authenticated: "すでにログインしています。"
       user:
         unauthenticated: 'ログインしてください。'
+        already_authenticated: "すでにログインしています。"
     registrations:
       user:
         signed_up: ユーザー登録に成功しました。
