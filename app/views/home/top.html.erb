@@ -1,40 +1,48 @@
 <div class="w-full max-w-6xl mx-auto px-4 py-10">
   <section class="py-12 md:py-20">
-    <div class="text-center">
+    <div class="bg-gradient-to-b from-slate-50 to-white rounded-3xl px-6 py-16 md:px-12 md:py-20 shadow-sm border border-slate-100 text-center">
       <span class="inline-block bg-indigo-100 text-indigo-700 rounded-full px-4 py-1 text-sm font-medium mb-6">
-        店舗の情報共有を、もっと確実に
+        店舗の情報共有を、もっとやさしく
       </span>
 
-      <h1 class="text-6xl md:text-7xl font-bold tracking-tight text-gray-900 mb-6">
-        共有ノート
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-gray-900 mb-6">
+        連絡ノート
       </h1>
 
-      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        店舗内の連絡事項や入荷情報、<br>
-        <span class="font-semibold text-gray-800">
-          クレーム対応や売場改善の記録
-        </span>
-        を整理して共有できる情報共有アプリです。<br>
-        紙の共有ノートでは埋もれやすい情報を、検索しやすい形で蓄積できます。
+      <p class="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed">
+        紙の連絡ノートを、<br class="md:hidden">
+        もっと使いやすく。
       </p>
-    </div>
 
-    <div class="flex flex-wrap justify-center gap-4 mt-10">
-      <% if user_signed_in? %>
-        <%= link_to "共有を投稿する", new_post_path, class: "inline-block bg-indigo-600 text-white px-6 py-3 rounded-md font-medium hover:bg-indigo-700 transition-colors" %>
-      <% else %>
-        <%= link_to "ユーザー登録", new_user_registration_path, class: "inline-block bg-indigo-600 text-white px-6 py-3 rounded-md font-medium hover:bg-indigo-700 transition-colors" %>
-      <% end %>
+      <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto mt-6 leading-relaxed">
+        連絡事項や入荷情報をデジタルで管理し、
+        確認状況や未読ユーザーも一目で把握できる
+        店舗向けの情報共有アプリです。
+      </p>
 
-      <%= link_to "共有一覧を見る", posts_path, class: "inline-block bg-white text-indigo-600 border border-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
+      <div class="flex flex-wrap justify-center gap-2 mt-6">
+        <span class="text-xs px-3 py-1 rounded-full bg-white text-gray-700 border border-gray-200">既読管理</span>
+        <span class="text-xs px-3 py-1 rounded-full bg-white text-gray-700 border border-gray-200">未読の可視化</span>
+        <span class="text-xs px-3 py-1 rounded-full bg-white text-gray-700 border border-gray-200">店舗ごとに管理</span>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4 mt-10">
+        <% if user_signed_in? %>
+          <%= link_to "投稿する", new_post_path, class: "inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-indigo-700 transition-colors shadow-sm" %>
+        <% else %>
+          <%= link_to "ユーザー登録", new_user_registration_path, class: "inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-indigo-700 transition-colors shadow-sm" %>
+        <% end %>
+
+        <%= link_to "一覧を見る", posts_path, class: "inline-block bg-white text-gray-800 border border-slate-200 px-6 py-3 rounded-xl font-medium hover:bg-slate-50 transition-colors" %>
+      </div>
     </div>
   </section>
 
   <section class="py-16 bg-white rounded-2xl shadow-sm">
     <div class="text-center mb-12 px-4">
-      <h2 class="text-3xl font-bold text-gray-900">StoreLogでできること</h2>
+      <h2 class="text-3xl font-bold text-gray-900">連絡ノートでできること</h2>
       <p class="mt-4 text-lg text-gray-600">
-        店舗内の情報を記録・共有し、伝達漏れを防ぎます
+        店舗内の共有をシンプルに整理し、伝達漏れを防ぎます
       </p>
     </div>
 
@@ -45,36 +53,36 @@
             連絡事項
           </span>
         </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-3">店舗の共有事項を残す</h3>
+        <h3 class="text-xl font-semibold text-gray-900 mb-3">共有事項を残す</h3>
         <p class="text-gray-600 leading-relaxed">
-          日々の引き継ぎや注意事項を記録し、スタッフ全員が後から確認できる形で残せます。
+          引き継ぎや注意事項を記録し、スタッフ全員があとから確認できる形で残せます。
         </p>
       </div>
 
       <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
-        <div class="mb-4 flex gap-2">
+        <div class="mb-4 flex gap-2 flex-wrap">
           <span class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-purple-100 text-purple-700">
-            入荷情報
+            既読管理
           </span>
           <span class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-red-100 text-red-700">
             未確認 / 確認済み
           </span>
         </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-3">確認状況を管理する</h3>
+        <h3 class="text-xl font-semibold text-gray-900 mb-3">確認状況を見える化</h3>
         <p class="text-gray-600 leading-relaxed">
-          入荷商品や重要な共有事項について、誰が確認したかを可視化し、伝達漏れを防ぎます。
+          誰が確認済みで、誰がまだ見ていないかを可視化し、確認漏れを防ぎます。
         </p>
       </div>
 
       <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
         <div class="mb-4">
           <span class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-green-100 text-green-700">
-            検索 / 共有
+            検索 / フィルタ
           </span>
         </div>
         <h3 class="text-xl font-semibold text-gray-900 mb-3">必要な情報をすぐ探せる</h3>
         <p class="text-gray-600 leading-relaxed">
-          紙のノートでは探しづらい過去の共有内容も、キーワード検索や絞り込みで素早く見つけられます。
+          紙のノートでは探しづらい過去の共有内容も、検索や絞り込みで素早く見つけられます。
         </p>
       </div>
     </div>
@@ -84,7 +92,7 @@
     <div class="grid md:grid-cols-2 gap-8 items-center">
       <div class="bg-white rounded-2xl shadow-sm p-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">
-          紙の共有ノートを、もっと使いやすく
+          紙の連絡ノートを、もっと使いやすく
         </h2>
         <p class="text-gray-600 leading-relaxed mb-6">
           店舗での情報共有をデジタル化することで、
@@ -107,7 +115,7 @@
         </p>
 
         <% if user_signed_in? %>
-          <%= link_to "共有を投稿する", new_post_path, class: "inline-block bg-white text-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
+          <%= link_to "投稿する", new_post_path, class: "inline-block bg-white text-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
         <% else %>
           <%= link_to "ユーザー登録", new_user_registration_path, class: "inline-block bg-white text-indigo-600 px-6 py-3 rounded-md font-medium hover:bg-indigo-50 transition-colors" %>
         <% end %>

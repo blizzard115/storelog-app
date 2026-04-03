@@ -1,5 +1,5 @@
-<div class="space-y-6 w-3/4 max-w-lg mx-auto">
-  <h1 class="text-xl font-bold text-gray-700">店舗共有ノート一覧</h1>
+<div class="space-y-6 w-full max-w-3xl mx-auto px-4">
+  <h1 class="text-xl font-bold text-gray-700">店舗連絡ノート一覧</h1>
 
   <%= form_with url: posts_path, method: :get, local: true, class: "mb-6" do |f| %>
     <div class="flex gap-2">
@@ -66,11 +66,11 @@
   <% else %>
     <div class="space-y-6">
       <% @posts.each do |post| %>
-        <div class="bg-white p-6 shadow rounded">
+        <div class="bg-white p-6 shadow-sm rounded-2xl border border-slate-200">
           <div class="flex items-center border-b border-gray-200 pb-6">
             <div class="w-full">
               <div class="flex items-center gap-2 flex-wrap">
-                <p class="text-lg font-medium leading-5 text-gray-800">
+                <p class="text-lg font-semibold leading-5 text-gray-800">
                   <%= link_to post.title, post_path(post), class: "hover:text-indigo-600" %>
                 </p>
 
@@ -91,7 +91,9 @@
                 by <%= link_to post.user.nickname, user_path(post.user), class: "hover:text-indigo-600 hover:font-bold" %>
               </p>
 
-              <% unread_count = User.where.not(id: post.read_users.pluck(:id) + [post.user_id]).count %>
+              <p class="text-sm leading-normal pt-1 text-gray-400">
+                <%= post.created_at.strftime("%Y/%m/%d %H:%M") %>
+              </p>
 
               <div class="pt-3">
                 <% if post.unread_count > 0 %>
@@ -104,6 +106,7 @@
                   </span>
                 <% end %>
               </div>
+
               <div class="flex gap-2 pt-3 flex-wrap">
                 <span class="inline-block text-xs font-medium px-3 py-1 rounded-full
                   <%= case post.post_type
@@ -119,7 +122,7 @@
           </div>
 
           <div class="px-2">
-            <p class="text-sm leading-5 py-4 text-gray-600 line-clamp-3 overflow-hidden">
+            <p class="text-sm leading-6 py-4 text-gray-600 line-clamp-3 overflow-hidden">
               <%= post.content %>
             </p>
           </div>
