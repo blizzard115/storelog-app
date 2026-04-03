@@ -17,6 +17,8 @@ class Post < ApplicationRecord
   validates :post_type, presence: true
 
   def unread_users
+    return User.none if store.blank?
+
     store.users.where.not(id: read_users.pluck(:id) + [user_id])
   end
 
