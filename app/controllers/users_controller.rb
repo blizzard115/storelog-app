@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_store
 
   def show
-    @user = current_user.store.users.find(params[:id])
+    @user = @store.users.find(params[:id])
     @posts = @user.posts.includes(:read_users).order(created_at: :desc)
 
     if params[:keyword].present?
@@ -19,5 +20,14 @@ class UsersController < ApplicationController
     end
 
     @post_count = @posts.count
+  end
+
+  private
+
+  def set_store
+    @store = current_user.store
+    return if @store.present?
+
+    redirect_to new_store_path, alert: "店舗を作成するか、既存の店舗に参加してください。"
   end
 end

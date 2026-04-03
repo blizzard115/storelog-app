@@ -1,13 +1,12 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :destroy]
+  before_action :authenticate_user!
+  before_action :set_store
+  before_action :set_post, only: [:show, :destroy]
 
   def index
-    @posts =
-      if user_signed_in? && current_user.store.present?
-        current_user.store.posts.includes(:user, :read_users).order(created_at: :desc)
-      else
-        Post.none
-      end
+    @posts = @store.posts
+                   .includes(:user, :read_users)
+                   .order(created_at: :desc)
 
     if params[:keyword].present?
       @posts = @posts.where("title LIKE ? OR content LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%")
@@ -17,7 +16,7 @@ class PostsController < ApplicationController
       @posts = @posts.where(post_type: params[:post_type])
     end
 
-    if params[:read_status] == "unread" && user_signed_in?
+    if params[:read_status] == "unread"
       read_post_ids = current_user.reads.select(:post_id)
       @posts = @posts.where.not(id: read_post_ids).where.not(user_id: current_user.id)
     end
@@ -28,38 +27,42 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = @store.posts.build(post_params)
     @post.user = current_user
-    @post.store = current_user.store
 
     if @post.save
-      flash[:notice] = "共有を投稿しました"
-      redirect_to posts_path
+      redirect_to posts_path, notice: "共有を投稿しました"
     else
-      flash[:alert] = "共有の投稿に失敗しました"
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = "共有の投稿に失敗しました"
+      render :new, status: :unprocessable_content
     end
   end
 
   def show
-    @post = current_user.store.posts.find(params[:id])
     @unread_users = @post.unread_users
   end
 
   def destroy
-    post = current_user.store.posts.find(params[:id])
-
-    if post.user == current_user
-      post.destroy
-      flash[:notice] = "共有を削除しました"
+    if @post.user_id == current_user.id
+      @post.destroy
+      redirect_to posts_path, notice: "共有を削除しました"
     else
-      flash[:alert] = "他のユーザーの投稿は削除できません"
+      redirect_to posts_path, alert: "他のユーザーの投稿は削除できません"
     end
-
-    redirect_to posts_path
   end
 
   private
+
+  def set_store
+    @store = current_user.store
+    return if @store.present?
+
+    redirect_to new_store_path, alert: "店舗を作成するか、既存の店舗に参加してください。"
+  end
+
+  def set_post
+    @post = @store.posts.find(params[:id])
+  end
 
   def post_params
     params.require(:post).permit(:title, :content, :post_type)
