@@ -26,17 +26,21 @@
       </div>
 
       <% if user_signed_in? && @post.user == current_user %>
-        <%= button_to "削除",
-          post_path(@post),
-          method: :delete,
-          class: "text-sm bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded hover:cursor-pointer" %>
+        <div class="flex gap-2">
+          <%= link_to "編集",
+            edit_post_path(@post),
+            class: "text-sm bg-white hover:bg-gray-100 text-gray-700 py-1 px-3 border border-gray-300 rounded" %>
+
+          <%= button_to "削除",
+            post_path(@post),
+            method: :delete,
+            class: "text-sm bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded hover:cursor-pointer" %>
+        </div>
       <% end %>
     </div>
 
     <div class="px-2">
-      <p class="text-sm leading-relaxed py-4 text-gray-600 whitespace-pre-wrap">
-        <%= @post.content %>
-      </p>
+      <p class="text-sm leading-relaxed py-4 text-gray-600 whitespace-pre-wrap"><%= @post.content %></p>
     </div>
 
     <div class="border-t border-gray-200 pt-4 mt-4">

@@ -1,37 +1,4 @@
-<div class="flex justify-center">
-  <%= form_with model: @post, class: "space-y-6 w-3/4 max-w-lg bg-white p-6 rounded-lg shadow" do |f| %>
-    <h1 class="block text-xl font-bold text-gray-700">共有を投稿する</h1>
-
-    <div class="mt-1">
-      <%= f.label :title, "タイトル", class: "text-gray-700 text-lg" %>
-      <%= f.text_field :title,
-        class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 px-2 block w-full sm:text-sm placeholder-gray-400 border border-gray-300 rounded-md",
-        placeholder: "新作ニットが入荷しました" %>
-    </div>
-
-    <div class="mt-1">
-      <%= f.label :content, "内容", class: "text-gray-700 text-lg" %>
-      <%= f.text_area :content,
-        rows: 6,
-        class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 px-2 block w-full sm:text-sm placeholder-gray-400 border border-gray-300 rounded-md",
-        placeholder: "入荷した商品の詳細、共有事項、注意点などを記入します" %>
-    </div>
-
-    <div class="mt-1">
-      <%= f.label :post_type, "投稿タイプ", class: "text-gray-700 text-lg" %>
-      <%= f.select :post_type,
-        [["連絡事項", "notice"], ["入荷情報", "arrival"], ["クレーム対応", "claim"], ["接客メモ", "customer_service"]],
-        {},
-        class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-2 px-2 block w-full sm:text-sm border border-gray-300 rounded-md bg-white" %>
-    </div>
-
-    <p class="mt-2 text-sm text-gray-500">
-      店舗内で共有したい情報を記録し、スタッフ間で確認しやすい形で残しましょう。
-    </p>
-
-    <div class="px-4 py-3 text-right sm:px-6">
-      <%= f.submit "共有を投稿する",
-        class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:cursor-pointer" %>
-    </div>
-  <% end %>
+<div class="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-2xl shadow-sm">
+  <h1 class="text-xl font-bold text-gray-800 mb-6">共有を投稿する</h1>
+  <%= render "form", post: @post, submit_label: "投稿する" %>
 </div>
