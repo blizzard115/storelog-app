@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_store
-  before_action :set_post, only: [:show, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_post_owner, only: [:edit, :update, :destroy]
 
   def index
     @posts = @store.posts
@@ -42,13 +43,21 @@ class PostsController < ApplicationController
     @unread_users = @post.unread_users
   end
 
-  def destroy
-    if @post.user_id == current_user.id
-      @post.destroy
-      redirect_to posts_path, notice: "共有を削除しました"
+  def edit
+  end
+
+  def update
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "共有を更新しました"
     else
-      redirect_to posts_path, alert: "他のユーザーの投稿は削除できません"
+      flash.now[:alert] = "共有の更新に失敗しました"
+      render :edit, status: :unprocessable_content
     end
+  end
+
+  def destroy
+    @post.destroy
+    redirect_to posts_path, notice: "共有を削除しました"
   end
 
   private
@@ -62,6 +71,12 @@ class PostsController < ApplicationController
 
   def set_post
     @post = @store.posts.find(params[:id])
+  end
+
+  def ensure_post_owner
+    return if @post.user_id == current_user.id
+
+    redirect_to posts_path, alert: "他のユーザーの投稿は編集・削除できません"
   end
 
   def post_params
