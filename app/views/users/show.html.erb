@@ -85,6 +85,14 @@
                   <%= link_to post.title, post_path(post), class: "hover:text-indigo-600" %>
                 </p>
 
+                <% if post.important? %>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600 ring-1 ring-inset ring-red-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v4a1 1 0 102 0V7zm-1 8a1.25 1.25 0 100-2.5A1.25 1.25 0 0010 15z" clip-rule="evenodd" />
+                    </svg>
+                    要確認
+                  </span>
+                <% end %>
                 <% if user_signed_in? && post.user != current_user %>
                   <% if post.read_users.include?(current_user) %>
                     <span class="text-xs px-2 py-1 rounded-full bg-gray-200 text-gray-600">

@@ -32,6 +32,22 @@
       class: "w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500" %>
   </div>
 
+  <div class="mb-6">
+    <label class="flex cursor-pointer items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 hover:bg-red-100/60 transition">
+        <%= f.check_box :important,
+        class: "mt-1 h-4 w-4 rounded border-gray-300 text-red-500 focus:ring-red-500" %>
+
+        <div>
+        <p class="text-sm font-semibold text-red-700">
+            重要な共有として投稿する
+        </p>
+        <p class="text-xs text-red-600 mt-1">
+            見落としを防ぎたい連絡にマークを付けます
+        </p>
+        </div>
+    </label>
+  </div>
+
   <%= f.submit submit_label,
     class: "w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition" %>
 <% end %>
