@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :store do
-    name { "MyString" }
-    email { "MyString" }
-    store_code { "MyString" }
+    sequence(:name) { |n| "テスト店舗#{n}" }
+    sequence(:store_code) { |n| "STORE#{n}" }
   end
 end

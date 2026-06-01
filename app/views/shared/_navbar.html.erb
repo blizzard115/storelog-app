@@ -15,7 +15,9 @@
         <% if user_signed_in? %>
           <li>
             <span class="text-xs bg-gray-700 text-white px-3 py-1 rounded-full">
-              🏬 <%= current_user.store.name %>
+              <% if user_signed_in? && current_user.store.present? %>
+                🏬 <%= current_user.store.name %>
+              <% end %>
             </span>
           </li>
 
