@@ -9,7 +9,7 @@ RSpec.describe "Homes", type: :system do
     it 'TechLogという文字列が表示される' do
       visit '/'
 
-      expect(page).to have_content('TechLog')
+      expect(page).to have_content('連絡ノート')
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe "Homes", type: :system do
       end
 
       it 'ログ投稿リンクを表示しない' do # 追加
-        expect(page).not_to have_link('ログ投稿', href: '/posts/new')
+        expect(page).not_to have_link('投稿', href: '/posts/new')
       end
  
       it 'ログアウトリンクは表示しない' do
@@ -50,7 +50,7 @@ RSpec.describe "Homes", type: :system do
       end
 
       it 'ログ投稿リンクを表示する' do # 追加
-        expect(page).to have_link('ログ投稿', href: '/posts/new')
+        expect(page).to have_link('投稿', href: '/posts/new')
       end
  
       it 'ログアウトリンクを表示する' do

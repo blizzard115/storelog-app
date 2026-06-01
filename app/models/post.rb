@@ -12,8 +12,8 @@ class Post < ApplicationRecord
     customer_service: 3
   }
 
-  validates :title, presence: true
-  validates :content, presence: true
+  validates :title, presence: true, length: { maximum: 100 }
+  validates :content, presence: true, length: { maximum: 1000 }
   validates :post_type, presence: true
 
   def unread_users

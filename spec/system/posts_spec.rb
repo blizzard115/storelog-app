@@ -4,7 +4,7 @@ describe 'Post', type: :system do
   before do
     driven_by :rack_test
     @user = create(:user) # ログイン用ユーザー作成
-    @post = create(:post, title: 'RSpec学習完了', content: 'System Specを作成した', user_id: @user.id)
+    @post = create(:post, title: 'RSpec学習完了', content: 'System Specを作成した', user: @user, store: @user.store)
   end
  
   # 投稿フォーム
@@ -16,7 +16,7 @@ describe 'Post', type: :system do
     subject do
       fill_in 'post_title', with: title
       fill_in 'post_content', with: content
-      click_button 'ログを記録'
+      click_button '投稿する'
     end
  
     context 'ログインしていない場合' do
@@ -59,7 +59,10 @@ describe 'Post', type: :system do
   end
  
   describe 'ログ詳細機能の検証' do
-    before { visit "/posts/#{@post.id}" }
+    before do
+      sign_in @user
+      visit "/posts/#{@post.id}"
+    end
  
     it 'Postの詳細が表示される' do
       expect(page).to have_content('RSpec学習完了')
@@ -71,7 +74,8 @@ describe 'Post', type: :system do
   describe 'ログ一覧機能の検証' do
     before do
       # 事前にもう一つの投稿を作成
-      @post2 = create(:post, title: 'RSpec学習完了 2', content: 'System Specを作成した 2', user_id: @user.id)
+      sign_in @user
+      @post2 = create(:post, title: 'RSpec学習完了 2', content: 'System Specを作成した 2', user: @user, store: @user.store)
       visit '/posts'
     end
   
@@ -110,7 +114,7 @@ describe 'Post', type: :system do
         end.to change(Post, :count).by(-1) # 削除ボタンをクリックすると投稿が1件減ることを確認
   
         expect(current_path).to eq('/posts') # 投稿一覧ページにリダイレクトされていることを確認
-        expect(page).to have_content('投稿が削除されました') # 削除完了メッセージが表示されていることを確認
+        expect(page).to have_content('共有を削除しました') # 削除完了メッセージが表示されていることを確認
         expect(page).not_to have_content('RSpec学習完了') # 削除した投稿が一覧に表示されていないことを確認
       end
     end
