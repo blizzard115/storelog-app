@@ -6,7 +6,7 @@ RSpec.describe "Homes", type: :system do
   end
 
   describe 'トップページの検証' do
-    it 'TechLogという文字列が表示される' do
+    it '連絡ノートという文字列が表示される' do
       visit '/'
 
       expect(page).to have_content('連絡ノート')
