@@ -64,9 +64,14 @@ class PostsController < ApplicationController
 
   def set_store
     @store = current_user.store
+
     return if @store.present?
 
-    redirect_to new_store_path, alert: "店舗を作成するか、既存の店舗に参加してください。"
+    @store = Store.find_or_create_by!(store_code: "default") do |store|
+      store.name = "デフォルト店舗"
+    end
+
+    current_user.update!(store: @store)
   end
 
   def set_post
