@@ -11,11 +11,15 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-screen bg-blue-50">
+  <body class="min-h-screen bg-blue-50">
     <%= render 'shared/navbar' %>
-    <%= render 'shared/flash' %>
-    <main class="container mx-auto mt-20 py-8 px-5">
-      <%= yield %>
-    </main>
+
+    <div class="pt-16">
+      <%= render 'shared/flash' %>
+
+      <main class="container mx-auto px-5">
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>
