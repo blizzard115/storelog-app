@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_07_045810) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_24_084948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_07_045810) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_reads_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_reads_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_reads_on_user_id"
   end
 
@@ -44,6 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_07_045810) do
     t.string "store_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["store_code"], name: "index_stores_on_store_code", unique: true
   end
 
   create_table "users", force: :cascade do |t|
