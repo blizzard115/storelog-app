@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = @store.users.find(params[:id])
-    @posts = @user.posts.includes(:read_users).order(created_at: :desc)
+    @posts = @user.posts.where(store: @store).includes(:read_users).order(created_at: :desc)
 
     if params[:keyword].present?
       @posts = @posts.where("title LIKE ? OR content LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%")

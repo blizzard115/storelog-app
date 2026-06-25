@@ -34,6 +34,10 @@
           </li>
 
           <li>
+            <%= link_to "店舗設定", store_membership_path, class: "text-gray-200 hover:text-white" %>
+          </li>
+
+          <li>
             <%= button_to "ログアウト", destroy_user_session_path,
               method: :delete,
               class: "text-gray-200 hover:text-white bg-transparent border-0" %>

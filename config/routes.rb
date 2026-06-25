@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show]
+  resource :store_membership, only: [:show, :update]
 end
