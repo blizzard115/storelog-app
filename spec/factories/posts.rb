@@ -4,5 +4,6 @@ FactoryBot.define do
     content { "本文1" }
 
     association :user, factory: :user
+    store { user.store }
   end
 end

@@ -8,7 +8,7 @@ describe User do
   describe '.first' do
     before do
       @user = create(:user, nickname: nickname, email: email) # 修正
-      @post = create(:post, title: 'タイトル', content: '本文', user_id: @user.id)
+      @post = create(:post, title: 'タイトル', content: '本文', user: @user)
     end
  
     subject { described_class.first }
@@ -60,6 +60,16 @@ describe User do
             expect(user.errors[:nickname]).to include("が入力されていません。")
           end
         end
+      end
+    end
+
+    describe 'store属性' do
+      it '保存済みUserのstoreが空の場合は無効である' do
+        saved_user = create(:user)
+        saved_user.store = nil
+
+        expect(saved_user.valid?).to be(false)
+        expect(saved_user.errors.of_kind?(:store, :blank)).to be(true)
       end
     end
   end
