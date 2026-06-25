@@ -6,9 +6,10 @@ describe Post do
   let(:title) { 'テストタイトル' }
   let(:content) { 'テスト本文' }
   let(:user_id) { @user.id } # 作成したユーザーのIDを外部キーに設定
+  let(:store) { @user.store }
  
   describe 'バリデーションの検証' do
-    let(:post) { Post.new(title: title, content: content, user_id: user_id) }
+    let(:post) { Post.new(title: title, content: content, user_id: user_id, store: store) }
  
     context '正常系' do
       it '有効である' do
@@ -54,11 +55,20 @@ describe Post do
           expect(post.errors[:user]).to include('が入力されていません。')
         end
       end
+
+      context 'storeが空の場合' do
+        let(:store) { nil }
+
+        it '無効である' do
+          expect(post.valid?).to be(false)
+          expect(post.errors.of_kind?(:store, :blank)).to be(true)
+        end
+      end
     end
   end
  
   describe 'Postが持つ情報の検証' do
-    before { create(:post, title: title, content: content, user_id: user_id) } # Post を作成
+    before { create(:post, title: title, content: content, user: @user) } # Post を作成
  
     subject { described_class.first }
  

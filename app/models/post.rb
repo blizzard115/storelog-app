@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
-  belongs_to :store, optional: true
+  belongs_to :store
 
   has_many :reads, dependent: :destroy
   has_many :read_users, through: :reads, source: :user

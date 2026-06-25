@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  belongs_to :store, optional: true
+  belongs_to :store
 
   before_validation :set_default_store, on: :create
 
