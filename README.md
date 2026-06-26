@@ -94,6 +94,36 @@ https://storelog-app.onrender.com/
 
 ---
 
+## 🧪 デモデータ（ローカル確認用）
+
+面接やポートフォリオ確認時に、店舗分離・既読管理・重要投稿・店舗コード参加機能を確認しやすいように、デモ用seedデータを用意しています。
+
+ローカル環境では、以下のコマンドでデモデータを作成できます。
+
+```bash
+docker compose exec web bin/rails db:seed
+```
+
+作成される主なデータは以下です。
+
+* デモ店舗：3件
+* デモユーザー：5件
+* デモ投稿：8件
+* デモ既読：5件
+
+デモログイン情報：
+
+* [demo.shibuya.staff@example.com](mailto:demo.shibuya.staff@example.com) / password
+* [demo.shinjuku.staff@example.com](mailto:demo.shinjuku.staff@example.com) / password
+* [demo.join@example.com](mailto:demo.join@example.com) / password
+
+店舗参加機能を確認する場合は、`demo.join@example.com` でログイン後、店舗設定画面で店舗コード `DEMO-SHIBUYA` を入力します。
+
+デモseedは本番環境では実行されないようにガードしています。
+固定パスワードのデモユーザーを本番環境に作成しないため、このデータはローカル確認用です。
+
+---
+
 ## 💡 工夫した点
 
 ### 店舗ごとのデータ分離
