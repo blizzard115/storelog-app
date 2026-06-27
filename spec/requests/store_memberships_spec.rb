@@ -56,6 +56,43 @@ RSpec.describe 'StoreMemberships', type: :request do
       end
     end
 
+    context '店舗コードの前後に空白がある場合' do
+      it '空白を取り除いて正しい店舗に参加できる' do
+        expect do
+          patch store_membership_path, params: {
+            store_membership: { store_code: "  #{new_store.store_code}  " }
+          }
+        end.to change { user.reload.store_id }.from(current_store.id).to(new_store.id)
+
+        expect(response).to redirect_to(posts_path)
+      end
+    end
+
+    context '店舗コードが空の場合' do
+      it '所属店舗を変更せずエラーを表示する' do
+        expect do
+          patch store_membership_path, params: {
+            store_membership: { store_code: '' }
+          }
+        end.not_to(change { user.reload.store_id })
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to include('店舗コードに一致する店舗が見つかりません')
+      end
+    end
+
+    context '現在所属している店舗コードを入力した場合' do
+      it 'エラーにならず所属店舗が維持される' do
+        expect do
+          patch store_membership_path, params: {
+            store_membership: { store_code: current_store.store_code }
+          }
+        end.not_to(change { user.reload.store_id })
+
+        expect(response).to redirect_to(posts_path)
+      end
+    end
+
     context '店舗コードが存在しない場合' do
       it '所属店舗を変更せずエラーを表示する' do
         expect do
