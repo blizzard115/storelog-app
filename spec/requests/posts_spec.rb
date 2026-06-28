@@ -67,6 +67,29 @@ RSpec.describe 'Posts', type: :request do
 
         expect(response).to have_http_status(:not_found)
       end
+
+      it '投稿者が同じ店舗に所属している場合は投稿者リンクが表示される' do
+        get post_path(@same_store_post)
+
+        expect(response.body).to include(@same_store_user.nickname)
+        expect(response.body).to include(%(href="#{user_path(@same_store_user)}"))
+      end
+
+      it '投稿者が別店舗へ移動済みの場合、投稿詳細で投稿者名は表示されるがリンクは表示されない' do
+        moved_author = create(:user, store: @store, nickname: '移動済み投稿者')
+        moved_author_post = create(
+          :post,
+          title: '移動済み投稿者の投稿',
+          user: moved_author,
+          store: @store
+        )
+        moved_author.update!(store: @other_store)
+
+        get post_path(moved_author_post)
+
+        expect(response.body).to include(moved_author.nickname)
+        expect(response.body).not_to include(%(href="#{user_path(moved_author)}"))
+      end
     end
   end
 
@@ -132,6 +155,23 @@ RSpec.describe 'Posts', type: :request do
         sign_in @user
         get '/posts'
         expect(response).to have_http_status '200'
+      end
+
+      it '投稿者が別店舗へ移動済みの場合、投稿一覧で投稿者名は表示されるがリンクは表示されない' do
+        moved_author = create(:user, store: @store, nickname: '移動済み投稿者')
+        create(
+          :post,
+          title: '移動済み投稿者の投稿',
+          user: moved_author,
+          store: @store
+        )
+        moved_author.update!(store: @other_store)
+
+        sign_in @user
+        get '/posts'
+
+        expect(response.body).to include(moved_author.nickname)
+        expect(response.body).not_to include(%(href="#{user_path(moved_author)}"))
       end
     end
   end
