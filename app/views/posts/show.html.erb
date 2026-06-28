@@ -17,7 +17,12 @@
         </h2>
 
         <p class="text-sm leading-normal pt-2 text-gray-500">
-          by <%= link_to @post.user.nickname, user_path(@post.user), class: "hover:text-indigo-600 hover:font-bold" %>
+          by
+          <% if @post.user.store_id == current_user.store_id %>
+            <%= link_to @post.user.nickname, user_path(@post.user), class: "hover:text-indigo-600 hover:font-bold" %>
+          <% else %>
+            <%= @post.user.nickname %>
+          <% end %>
         </p>
 
         <div class="flex gap-2 pt-3 flex-wrap">
