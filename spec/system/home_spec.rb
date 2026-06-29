@@ -6,10 +6,10 @@ RSpec.describe "Homes", type: :system do
   end
 
   describe 'トップページの検証' do
-    it '連絡ノートという文字列が表示される' do
+    it '売り場ノートという文字列が表示される' do
       visit '/'
 
-      expect(page).to have_content('連絡ノート')
+      expect(page).to have_content('売り場ノート')
     end
   end
 
